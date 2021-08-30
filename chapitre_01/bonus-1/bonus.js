@@ -10,6 +10,15 @@ app.get('/', (req, res) => {
   res.send("Authors API");
 });
 
+app.get('/country', (req, res) => {
+  res.send(responseAPICountries.responseAPICountries);
+})
+
 app.get('/country/:item', (req, res) => {
-   res.json(responseAPICountries.responseAPICountries[req.params.item]);
+  for (let country of responseAPICountries.responseAPICountries) {
+    if (req.params.item === country.name) {
+      console.log(country)
+      res.send(country);
+    }
+  }
 });
