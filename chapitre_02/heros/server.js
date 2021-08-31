@@ -73,12 +73,17 @@ app.get("/heroes/:name/power", (req, res) => {
 
 app.post("/heroes", transformName, (req, res) => {
     const heroInfo = req.body;
-    superheros.push(heroInfo);
-    console.log(superheros);
-    res.json({
-        message: "Hero created",
-        data: superheros
-    });
+    const doublon = superheros.filter(hero => hero.name === heroInfo.name)
+    console.log(doublon)
+    if (doublon.length === 0) {
+        superheros.push(heroInfo);
+        res.json({
+            message: "Hero created",
+            data: superheros
+        });
+    } else {
+        res.send("Mdr")
+    }
 });
 
 app.patch("/heroes/:name/power", (req, res) => {
